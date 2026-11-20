@@ -1,5 +1,7 @@
 **This fork allows Dolphin to poll the ~1080Hz pad buffer from the Mario Party 1080Hz mods as intended.**
 
+Savestates created inside this fork will **most likely NOT work** with unmodified versions of Dolphin, and vice versa.
+
 Do **NOT** report any bugs you encounter in this fork to the Dolphin devs. Either report it to me directly on Discord (denny82044), or, open an issue thread on this repo.
 # Dolphin - A GameCube and Wii Emulator
 
