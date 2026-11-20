@@ -1,7 +1,7 @@
 # Changes from vanilla Dolphin
 This fork allows Dolphin to keep controller polling steady at high rates (no change in unmodified/60Hz/50Hz games, this mod is designed **specifically for the Mario Party 1080Hz collection of mods**).
 
-In TAS Input, when "Turbo durations count controller polls, not frames." is enabled, turbo inputs (when you right-click a button) are timed in controller polls instead of video frames, so they can alternate at the game's real polling rate. When it's disabled, turbo behaves just like in stock Dolphin.
+In TAS Input, when "Turbo durations count controller polls, not frames" is enabled, turbo inputs (when you right-click a button) are timed in controller polls instead of video frames, so they can alternate at the game's real polling rate. When it's disabled, turbo behaves just like in stock Dolphin.
 
 Savestates created inside this fork will **NOT work** with unmodified versions of Dolphin, and vice versa.
 
