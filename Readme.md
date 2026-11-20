@@ -1,4 +1,4 @@
-**This fork allows Dolphin to poll the ~1080Hz pad buffer from the Mario Party 1080Hz mods as intended.**
+This fork allows Dolphin to keep controller polling steady at high rates (no change in unmodified/60Hz/50Hz games, this mod is designed **specifically for the Mario Party 1080Hz collection of mods**).
 
 Savestates created inside this fork will **NOT work** with unmodified versions of Dolphin, and vice versa.
 
