@@ -70,7 +70,7 @@ public:
 
   DataResponse GetData(u32& hi, u32& low) override;
 
-  u64 GetPollSerial() const { return m_poll_serial; }
+  u64 GetPollSerial() const override { return m_poll_serial; }
 
   // Send a command directly
   void SendCommand(u32 command, u8 poll) override;

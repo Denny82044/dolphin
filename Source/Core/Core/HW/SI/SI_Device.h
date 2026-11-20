@@ -132,6 +132,9 @@ public:
 
   virtual DataResponse GetData(u32& hi, u32& low) = 0;
 
+  // Number of controller polls performed so far (0 for devices that aren't standard controllers).
+  virtual u64 GetPollSerial() const { return 0; }
+
   // Send a command directly (no detour per buffer)
   virtual void SendCommand(u32 command, u8 poll) = 0;
 

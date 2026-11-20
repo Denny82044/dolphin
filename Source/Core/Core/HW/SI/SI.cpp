@@ -572,8 +572,7 @@ u64 SerialInterfaceManager::GetPadPollSerial(int channel) const
   if (channel < 0 || channel >= MAX_SI_CHANNELS || !m_channel[channel].device)
     return 0;
 
-  const auto* pad = dynamic_cast<const CSIDevice_GCController*>(m_channel[channel].device.get());
-  return pad ? pad->GetPollSerial() : 0;
+  return m_channel[channel].device->GetPollSerial();
 }
 
 }  // namespace SerialInterface
