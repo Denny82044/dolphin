@@ -36,6 +36,11 @@ private:
   const TASInputWindow* m_parent;
   TASControlState m_state;
   int m_frame_turbo_started = 0;
+  // Poll-based turbo: counts controller polls (SI) instead of video frames, so presses can change
+  // many times per frame (e.g. 1080Hz polling mods).
+  bool m_turbo_use_polls = false;
+  int m_turbo_channel = 0;
+  u64 m_poll_turbo_started = 0;
   int m_turbo_press_frames = 0;
   int m_turbo_total_frames = 0;
 };

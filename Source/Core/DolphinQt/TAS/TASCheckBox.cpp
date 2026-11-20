@@ -5,6 +5,7 @@
 
 #include <QMouseEvent>
 
+#include "Core/HW/SI/SI.h"
 #include "Core/Movie.h"
 #include "Core/System.h"
 #include "DolphinQt/QtUtils/QueueOnObject.h"
@@ -28,6 +29,14 @@ bool TASCheckBox::GetValue() const
 
   if (check_state == Qt::PartiallyChecked)
   {
+    if (m_turbo_use_polls)
+    {
+      const u64 polls_elapsed =
+          Core::System::GetInstance().GetSerialInterface().GetPadPollSerial(m_turbo_channel) -
+          m_poll_turbo_started;
+      return static_cast<int>(polls_elapsed % m_turbo_total_frames) < m_turbo_press_frames;
+    }
+
     const u64 frames_elapsed =
         Core::System::GetInstance().GetMovie().GetCurrentFrame() - m_frame_turbo_started;
     return static_cast<int>(frames_elapsed % m_turbo_total_frames) < m_turbo_press_frames;
@@ -57,6 +66,14 @@ void TASCheckBox::mousePressEvent(QMouseEvent* event)
   }
 
   m_frame_turbo_started = Core::System::GetInstance().GetMovie().GetCurrentFrame();
+  const std::optional<int> poll_channel = m_parent->GetTurboPollChannel();
+  m_turbo_use_polls = poll_channel.has_value();
+  if (m_turbo_use_polls)
+  {
+    m_turbo_channel = *poll_channel;
+    m_poll_turbo_started =
+        Core::System::GetInstance().GetSerialInterface().GetPadPollSerial(m_turbo_channel);
+  }
   m_turbo_press_frames = m_parent->GetTurboPressFrames();
   m_turbo_total_frames = m_turbo_press_frames + m_parent->GetTurboReleaseFrames();
   setCheckState(Qt::PartiallyChecked);

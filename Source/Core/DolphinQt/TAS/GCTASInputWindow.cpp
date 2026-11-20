@@ -97,6 +97,16 @@ GCTASInputWindow::GCTASInputWindow(QWidget* parent, int controller_id)
   m_buttons_box = new QGroupBox(tr("Buttons"));
   m_buttons_box->setLayout(buttons_layout);
 
+  // Let turbo durations be counted in controller polls rather than video frames, so a game that
+  // polls many times per frame (e.g. a 1080Hz polling mod) can be mashed at its true poll rate.
+  m_turbo_use_polls = new QCheckBox(tr("Turbo durations count controller polls, not frames"));
+  m_turbo_use_polls->setToolTip(
+      tr("When enabled, newly started turbo buttons (right-click a button) use the values above as "
+         "numbers of controller polls instead of video frames. 1 press + 1 release alternates "
+         "every poll. Re-right-click a turbo button after changing this."));
+  if (auto* settings_layout = qobject_cast<QGridLayout*>(m_settings_box->layout()))
+    settings_layout->addWidget(m_turbo_use_polls, 3, 0, 1, 2);
+
   auto* layout = new QVBoxLayout;
   layout->addLayout(top_layout);
   layout->addWidget(m_triggers_box);
@@ -107,6 +117,13 @@ GCTASInputWindow::GCTASInputWindow(QWidget* parent, int controller_id)
   const QSize hint = m_scroll_widget->sizeHint();
   const int scrollbar_buffer = style()->pixelMetric(QStyle::PM_ScrollBarExtent) + 10;
   resize(hint.width() + scrollbar_buffer, hint.height() + scrollbar_buffer);
+}
+
+std::optional<int> GCTASInputWindow::GetTurboPollChannel() const
+{
+  if (m_turbo_use_polls && m_turbo_use_polls->isChecked())
+    return m_controller_id;
+  return std::nullopt;
 }
 
 void GCTASInputWindow::hideEvent(QHideEvent* event)

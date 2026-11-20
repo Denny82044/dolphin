@@ -50,6 +50,10 @@ public:
   int GetTurboPressFrames() const;
   int GetTurboReleaseFrames() const;
 
+  // If turbo durations should be counted in controller polls instead of video frames, returns the
+  // SI channel whose polls are counted. Windows that don't support this return nullopt.
+  virtual std::optional<int> GetTurboPollChannel() const { return std::nullopt; }
+
 protected:
   TASCheckBox* CreateButton(const QString& text, std::string_view group_name,
                             std::string_view control_name, InputOverrider* overrider);
@@ -80,6 +84,7 @@ protected:
   QCheckBox* m_use_controller;
   QSpinBox* m_turbo_press_frames;
   QSpinBox* m_turbo_release_frames;
+  QCheckBox* m_turbo_use_polls = nullptr;
 
 private:
   std::optional<ControlState> GetButton(TASCheckBox* checkbox, ControlState controller_state);

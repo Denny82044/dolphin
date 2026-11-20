@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <optional>
+
 #include "DolphinQt/TAS/TASInputWindow.h"
 
 class QGroupBox;
@@ -19,6 +21,8 @@ public:
 
   void hideEvent(QHideEvent* event) override;
   void showEvent(QShowEvent* event) override;
+
+  std::optional<int> GetTurboPollChannel() const override;
 
 private:
   int m_controller_id;

@@ -56,6 +56,11 @@ protected:
   // Type of button combo from the last/current poll
   EButtonCombo m_last_button_combo = COMBO_NONE;
 
+  // Incremented once per logical controller poll (every GetData call), regardless of whether the
+  // poll came from SI auto-polling or a manual SI transfer. Saved in savestates so that anything
+  // derived from it (e.g. poll-based TAS turbo) stays deterministic across rerecords.
+  u64 m_poll_serial = 0;
+
 public:
   // Constructor
   CSIDevice_GCController(Core::System& system, SIDevices device, int device_number);
@@ -64,6 +69,8 @@ public:
   int RunBuffer(u8* buffer, int request_length) override;
 
   DataResponse GetData(u32& hi, u32& low) override;
+
+  u64 GetPollSerial() const { return m_poll_serial; }
 
   // Send a command directly
   void SendCommand(u32 command, u8 poll) override;

@@ -24,6 +24,7 @@
 #include "Core/HW/MMIO.h"
 #include "Core/HW/ProcessorInterface.h"
 #include "Core/HW/SI/SI_DeviceGBA.h"
+#include "Core/HW/SI/SI_DeviceGCController.h"
 #include "Core/HW/SystemTimers.h"
 #include "Core/Movie.h"
 #include "Core/NetPlayProto.h"
@@ -564,6 +565,15 @@ SIDevices SerialInterfaceManager::GetDeviceType(int channel) const
 u32 SerialInterfaceManager::GetPollXLines()
 {
   return m_poll.X;
+}
+
+u64 SerialInterfaceManager::GetPadPollSerial(int channel) const
+{
+  if (channel < 0 || channel >= MAX_SI_CHANNELS || !m_channel[channel].device)
+    return 0;
+
+  const auto* pad = dynamic_cast<const CSIDevice_GCController*>(m_channel[channel].device.get());
+  return pad ? pad->GetPollSerial() : 0;
 }
 
 }  // namespace SerialInterface

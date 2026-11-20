@@ -66,6 +66,10 @@ public:
 
   u32 GetPollXLines();
 
+  // Number of controller polls performed so far on a GameCube controller channel (0 if the
+  // channel doesn't hold a standard controller).
+  u64 GetPadPollSerial(int channel) const;
+
   static constexpr u32 BUFFER_SIZE = 128;
 
 private:

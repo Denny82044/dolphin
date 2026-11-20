@@ -974,6 +974,15 @@ void VideoInterfaceManager::Update(u64 ticks)
   ++m_half_line_count;
   if (m_half_line_count == GetHalfLinesPerEvenField() + GetHalfLinesPerOddField())
   {
+    // An SI poll whose results are due exactly at the end of the frame belongs to the field that
+    // just ended's poll sequence. The half-line counter wraps to 0 here, so without this the
+    // comparison against m_half_line_of_next_si_poll could never match and that poll would be
+    // silently dropped (while the same situation at the odd->even boundary is not dropped).
+    // This made e.g. a 1ms polling rate with X=15, Y=18 alternate between 17 and 18 polls per
+    // field instead of a steady 18 like real hardware.
+    if (m_half_line_of_next_si_poll == m_half_line_count)
+      m_half_line_of_next_si_poll = 0;
+
     m_half_line_count = 0;
   }
 

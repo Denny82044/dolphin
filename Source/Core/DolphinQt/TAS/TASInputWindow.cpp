@@ -54,13 +54,13 @@ TASInputWindow::TASInputWindow(QWidget* parent) : QDialog(parent)
                                   "random. In some cases this can be fixed by adding a deadzone."));
   settings_layout->addWidget(m_use_controller, 0, 0, 1, 2);
 
-  QLabel* turbo_press_label = new QLabel(tr("Duration of Turbo Button Press (frames):"));
+  QLabel* turbo_press_label = new QLabel(tr("Duration of Turbo Button Press (frames, or polls):"));
   m_turbo_press_frames = new QSpinBox();
   m_turbo_press_frames->setMinimum(1);
   settings_layout->addWidget(turbo_press_label, 1, 0);
   settings_layout->addWidget(m_turbo_press_frames, 1, 1);
 
-  QLabel* turbo_release_label = new QLabel(tr("Duration of Turbo Button Release (frames):"));
+  QLabel* turbo_release_label = new QLabel(tr("Duration of Turbo Button Release (frames, or polls):"));
   m_turbo_release_frames = new QSpinBox();
   m_turbo_release_frames->setMinimum(1);
   settings_layout->addWidget(turbo_release_label, 2, 0);

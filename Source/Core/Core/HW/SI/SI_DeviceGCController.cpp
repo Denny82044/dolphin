@@ -167,6 +167,9 @@ GCPadStatus CSIDevice_GCController::GetPadStatus()
 //  |_ ERR_STATUS (error on last GetData or SendCmd?)
 DataResponse CSIDevice_GCController::GetData(u32& hi, u32& low)
 {
+  // Bump before reading input so input overrides (TAS turbo) see a fresh value for every poll.
+  ++m_poll_serial;
+
   GCPadStatus pad_status = GetPadStatus();
 
   if (!pad_status.isConnected)
@@ -331,6 +334,7 @@ void CSIDevice_GCController::DoState(PointerWrap& p)
   p.Do(m_mode);
   p.Do(m_timer_button_combo_start);
   p.Do(m_last_button_combo);
+  p.Do(m_poll_serial);
 }
 
 CSIDevice_TaruKonga::CSIDevice_TaruKonga(Core::System& system, SIDevices device, int device_number)
