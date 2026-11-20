@@ -47,7 +47,7 @@ Dolphin can only be installed on devices that satisfy the above requirements. At
 
 You may find building instructions on the appropriate wiki page for your operating system:
 
-* [Windows](https://github.com/Denny82044/dolphin/wiki/Building-for-Windows)
+* [Windows](https://github.com/dolphin-emu/dolphin/wiki/Building-for-Windows)
 * [Linux](https://github.com/dolphin-emu/dolphin/wiki/Building-for-Linux)
 * [macOS](https://github.com/dolphin-emu/dolphin/wiki/Building-for-macOS)
 * [Android](#android-specific-instructions) <!-- TODO: Create a "Building for Android" wiki page and link it here -->
