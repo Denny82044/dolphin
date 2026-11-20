@@ -1,3 +1,4 @@
+# Changes from vanilla Dolphin
 This fork allows Dolphin to keep controller polling steady at high rates (no change in unmodified/60Hz/50Hz games, this mod is designed **specifically for the Mario Party 1080Hz collection of mods**).
 
 Allows TAS Input to send inputs every controller poll, instead of once every frame.
